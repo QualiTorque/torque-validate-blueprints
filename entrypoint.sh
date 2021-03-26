@@ -7,6 +7,7 @@ echo "Working in branch ${BRANCH}"
 echo "Space: ${INPUT_SPACE}"
 
 echo "Files from the user input ${INPUT_FILESLIST}"
+VAR=$(echo "This is test" | tee /dev/tty)
 
 [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1);
 
