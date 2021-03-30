@@ -81,4 +81,3 @@ if (( $err > 0 ));
 then
 	exit 1;
 fi
-import sys, json; errors = json.load(sys.stdin)['errors']; print("Valid") if not errors else print(' '.join( [err['message'] for err in errors]))
