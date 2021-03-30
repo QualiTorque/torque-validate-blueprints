@@ -28,8 +28,8 @@ then
 		  	# find corresponding blueprint
 			resource=$(dirname $path | cut -d/ -f 2)
 			echo "Find blueprints which depend on ${resource}"
-      
-      		while read bp;
+
+	  		while read bp;
 			do
 				if [[ ! " ${FILES_TO_VALIDATE[@]} " =~ " ${bp} " ]];
 				then
@@ -56,17 +56,17 @@ do
 	bpname=`echo ${FILES_TO_VALIDATE[$i]} | sed 's,blueprints/,,' | sed 's/.yaml//'`
 	echo "Validating ${bpname}..."
 	PAYLOAD=(
-          "{
-            'type':'$INPUT_TYPE',
-            'blueprint_name':'${bpname}',
-            'source': {
+		  "{
+			'type':'$INPUT_TYPE',
+			'blueprint_name':'${bpname}',
+			'source': {
 				'branch': '${BRANCH}'
 			}
-          }"
-    )
+		  }"
+	)
 	curl --silent -X POST "https://cloudshellcolony.com/api/spaces/${INPUT_SPACE}/validations/blueprints" \
-            -H "accept: text/plain" -H "Authorization: bearer ${INPUT_COLONY_TOKEN}" \
-            -H "Content-Type:  application/json" -d "$PAYLOAD"` | \ 
+			-H "accept: text/plain" -H "Authorization: bearer ${INPUT_COLONY_TOKEN}" \
+			-H "Content-Type:  application/json" -d "$PAYLOAD"` | \ 
 				python3 -c \ 	"import sys, json; \
 								errors = json.load(sys.stdin)['errors']; \
 								print('Valid') if not errors else print(' '.join( [err['message'] for err in errors])) or sys.exit(1)"
