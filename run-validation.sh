@@ -55,7 +55,24 @@ for ((i = 0; i < ${#FILES_TO_VALIDATE[@]}; i++));
 do
 	bpname=`echo ${FILES_TO_VALIDATE[$i]} | sed 's,blueprints/,,' | sed 's/.yaml//'`
 	echo "Validating ${bpname}..."
-	colony --token $INPUT_COLONY_TOKEN --space $INPUT_SPACE bp validate "${bpname}" --branch $BRANCH || ((err++))
+	PAYLOAD=(
+          "{
+            'type':'$INPUT_TYPE',
+            'blueprint_name':'${bpname}',
+            'source': {
+				'branch': '${BRANCH}'
+			}
+          }"
+    )
+	curl --silent -X POST "https://cloudshellcolony.com/api/spaces/${INPUT_SPACE}/validations/blueprints" \
+            -H "accept: text/plain" -H "Authorization: bearer ${INPUT_COLONY_TOKEN}" \
+            -H "Content-Type:  application/json" -d "$PAYLOAD"` | \ 
+				python3 -c \ 	"import sys, json; \
+								errors = json.load(sys.stdin)['errors']; \
+								print('Valid') if not errors else print(' '.join( [err['message'] for err in errors])) or sys.exit(1)"
+	[ $? -eq 0 ] || ((err++))
+	
+	# colony --token $INPUT_COLONY_TOKEN --space $INPUT_SPACE bp validate "${bpname}" --branch $BRANCH || ((err++))
 done
 
 echo "Number of failed blueptints: ${err}"
@@ -64,3 +81,4 @@ if (( $err > 0 ));
 then
 	exit 1;
 fi
+import sys, json; errors = json.load(sys.stdin)['errors']; print("Valid") if not errors else print(' '.join( [err['message'] for err in errors]))
