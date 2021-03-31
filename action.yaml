@@ -34,8 +34,8 @@ runs:
 
     - name: Validation Loop
       id: validate
-      run: ${{ github.action_path }}/validation.py
+      run: python3 ${{ github.action_path }}/validation.py
       env:
         BRANCH: ${{ steps.extract_branch.outputs.branch }}
         BPS_TO_VALIDATE: ${{ steps.build-bps-list.outputs.blueprints-to-validate }}
-      shell: python
+      shell: bash
