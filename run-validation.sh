@@ -5,9 +5,7 @@ FILES_TO_VALIDATE=()
 
 echo "Working in branch ${BRANCH}"
 echo "Space: ${INPUT_SPACE}"
-
 echo "Files from the user input ${INPUT_FILESLIST}"
-VAR=$(echo "This is test" | tee /dev/tty)
 
 [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1);
 
@@ -25,11 +23,11 @@ then
 			
 		elif [ $FOLDER == "applications" ] || [ $FOLDER == "services" ];
 		then
-		  	# find corresponding blueprint
+			# find corresponding blueprint
 			resource=$(dirname $path | cut -d/ -f 2)
 			echo "Find blueprints which depend on ${resource}"
 
-	  		while read bp;
+			while read bp;
 			do
 				if [[ ! " ${FILES_TO_VALIDATE[@]} " =~ " ${bp} " ]];
 				then
@@ -42,8 +40,8 @@ then
 		fi
 	done
 
-  	echo "Final list of files to validate:"
-  	echo ${FILES_TO_VALIDATE[@]}
+	echo "Final list of files to validate:"
+	echo ${FILES_TO_VALIDATE[@]}
 
 else
 	FILES_TO_VALIDATE=(blueprints/*.yaml)
@@ -56,17 +54,17 @@ do
 	bpname=`echo ${FILES_TO_VALIDATE[$i]} | sed 's,blueprints/,,' | sed 's/.yaml//'`
 	echo "Validating ${bpname}..."
 	PAYLOAD=(
-		  "{
+		"{
 			'type':'$INPUT_TYPE',
 			'blueprint_name':'${bpname}',
 			'source': {
 				'branch': '${BRANCH}'
 			}
-		  }"
+		}"
 	)
 	curl --silent -X POST "https://cloudshellcolony.com/api/spaces/${INPUT_SPACE}/validations/blueprints" \
 			-H "accept: text/plain" -H "Authorization: bearer ${INPUT_COLONY_TOKEN}" \
-			-H "Content-Type:  application/json" -d "$PAYLOAD"` | \ 
+			-H "Content-Type: application/json" -d "$PAYLOAD"` | \ 
 				python3 -c \ 	"import sys, json; \
 								errors = json.load(sys.stdin)['errors']; \
 								print('Valid') if not errors else print(' '.join( [err['message'] for err in errors])) or sys.exit(1)"
