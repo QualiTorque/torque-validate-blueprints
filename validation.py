@@ -31,9 +31,12 @@ def validate(blueprint, space, token, branch):
 
 if __name__ == "__main__":
     bps_to_validate = os.environ.get("BPS_TO_VALIDATE", "")
-    branch_name = os.environ.get("BRANCH", "")
-    colony_space = os.environ.get("INPUT_SPACE", "")
-    colony_token = os.environ.get("INPUT_COLONY_TOKEN", "")
+    branch_name = os.environ.get("BRANCH", "master")
+    colony_space = os.environ.get("SPACE", "")
+    colony_token = os.environ.get("COLONY_TOKEN", "")
+
+    if not all([colony_space, colony_token]):
+        print("[ERROR] Unable to validate blueprints since not all mandatory parameters have been provided")
 
     if not bps_to_validate:
         print("Nothing to do")

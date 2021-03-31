@@ -40,4 +40,7 @@ runs:
       env:
         BRANCH: ${{ steps.extract_branch.outputs.branch }}
         BPS_TO_VALIDATE: ${{ steps.build-bps-list.outputs.blueprints-to-validate }}
+        SPACE: ${{ inputs.space }}
+        COLONY_TOKEN: ${{ inputs.colony_token }}
+
       shell: bash
