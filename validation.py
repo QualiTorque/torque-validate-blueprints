@@ -15,19 +15,18 @@ def validate(blueprint, space, token, branch):
 
     headers = {
         "Content-Type": "application/json",
-        "Accept": "application/json",
         "Accept-Charset": "utf-8",
         "Authorization": f"Bearer {token}"
     }
     
-    resp = requests.post(endpoint_url, data=payload, headers=headers)
-
+    resp = requests.post(endpoint_url, json=payload, headers=headers)
+    print(resp.request.body)
     if resp.status_code > 400:
         raise Exception(resp.text)
     
     else:
-        return [err['message'] for err in resp.json['errors']]
-
+        err_list = resp.json().get("errors", [])
+        return [err['message'] for err in err_list]
 
 if __name__ == "__main__":
     bps_to_validate = os.environ.get("BPS_TO_VALIDATE", "")
