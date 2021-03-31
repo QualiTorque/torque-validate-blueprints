@@ -7,7 +7,7 @@ inputs:
     required: true
 
   fileslist:
-    description: 'Whitespace separated list of files to validate'
+    description: 'A list of files to validate in csv format'
     required: false
     
   colony_token:
@@ -17,7 +17,23 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # todo: split to more steps, use python(?) 
-    - id: validate
-      run: ${{ github.action_path }}/run-validation.sh
+    - id: check-repo
+      run: |
+        echo "Space: ${INPUT_SPACE}"
+        echo "Files from the user input: ${INPUT_FILESLIST}"
+        [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
+
+    - id: build-bps-list
+      run: ${{ github.action_path }}/build_bps_list.sh
       shell: bash
+
+    - id: extract_branch
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      
+    - id: validate
+      run: ${{ github.action_path }}/validation.py
+      env:
+        BRANCH: ${{ steps.extract_branch.outputs.branch }}
+        BPS_TO_VALIDATE: ${{ steps.build-bps-list.outputs.blueprints-to-validate }}
+      shell: python
