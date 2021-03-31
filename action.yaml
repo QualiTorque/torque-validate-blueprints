@@ -22,6 +22,7 @@ runs:
         echo "Space: ${INPUT_SPACE}"
         echo "Files from the user input: ${INPUT_FILESLIST}"
         [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
+      shell: bash
 
     - id: build-bps-list
       run: ${{ github.action_path }}/build_bps_list.sh
@@ -30,7 +31,7 @@ runs:
     - id: extract_branch
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      
+
     - id: validate
       run: ${{ github.action_path }}/validation.py
       env:
