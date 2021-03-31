@@ -4,6 +4,7 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$INPUT_FILESLIST" ];
 then
+	echo "User provided a list of files to analyze"
 	for path in $INPUT_FILESLIST;
 	do
 		# highlevel dir
@@ -33,10 +34,10 @@ then
 		fi
 	done
 
-	echo "Final list of files to validate:"
 	echo ${FILES_TO_VALIDATE[@]}
 
 else
+	echo "All blueprints in a repo will be validated"
 	FILES_TO_VALIDATE=(blueprints/*.yaml)
 fi
 
