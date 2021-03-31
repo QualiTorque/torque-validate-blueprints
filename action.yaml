@@ -32,7 +32,8 @@ runs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
-    - id: validate
+    - name: Validation Loop
+      id: validate
       run: ${{ github.action_path }}/validation.py
       env:
         BRANCH: ${{ steps.extract_branch.outputs.branch }}
