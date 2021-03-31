@@ -26,6 +26,8 @@ runs:
 
     - id: build-bps-list
       run: ${{ github.action_path }}/build_bps_list.sh
+      env:
+        FILESLIST: ${{ inputs.fileslist }}
       shell: bash
 
     - id: extract_branch

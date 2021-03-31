@@ -2,10 +2,10 @@
 
 FILES_TO_VALIDATE=()
 
-if [ -n "$INPUT_FILESLIST" ];
+if [ -n "$FILESLIST" ];
 then
 	echo "User provided a list of files to analyze"
-	for path in $INPUT_FILESLIST;
+	for path in $FILESLIST;
 	do
 		# highlevel dir
 		FOLDER=$(dirname $path | cut -d/ -f 1);

@@ -40,6 +40,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     print(f"Branch for validation: {branch_name}")
+    print(f"Space: {colony_space}")
     print(f"Final list of blueprints to validate: {bps_to_validate}")
 
     errors_sum = 0
