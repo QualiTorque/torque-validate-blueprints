@@ -14,7 +14,7 @@ def validate(blueprint, space, token, branch):
     }
 
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
         "Accept": "application/json",
         "Accept-Charset": "utf-8",
         "Authorization": f"Bearer {token}"
@@ -30,10 +30,10 @@ def validate(blueprint, space, token, branch):
 
 
 if __name__ == "__main__":
-    bps_to_validate = os.environ["BPS_TO_VALIDATE"]
-    branch_name = os.environ["BRANCH"]
-    colony_space = os.environ["INPUT_SPACE"]
-    colony_token = os.environ["INPUT_COLONY_TOKEN"]
+    bps_to_validate = os.environ.get("BPS_TO_VALIDATE", "")
+    branch_name = os.environ.get("BRANCH", "")
+    colony_space = os.environ.get("INPUT_SPACE", "")
+    colony_token = os.environ.get("INPUT_COLONY_TOKEN", "")
 
     if not bps_to_validate:
         print("Nothing to do")
