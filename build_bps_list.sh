@@ -4,7 +4,6 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$FILESLIST" ];
 then
-	echo "User provided a list of files to analyze"
 	for path in $FILESLIST;
 	do
 		# highlevel dir
@@ -19,13 +18,11 @@ then
 		then
 			# find corresponding blueprint
 			resource=$(dirname $path | cut -d/ -f 2)
-			echo "Find blueprints which depend on ${resource}"
 
 			while read bp;
 			do
 				if [[ ! " ${FILES_TO_VALIDATE[@]} " =~ " ${bp} " ]];
 				then
-					echo "Adding ${bp} to the list"
 					FILES_TO_VALIDATE+=("${bp}")
 				fi
 			done < <(grep -l -r blueprints/ -e $resource)
@@ -33,8 +30,6 @@ then
 			echo "Skipping ${path}"
 		fi
 	done
-
-	echo ${FILES_TO_VALIDATE[@]}
 
 else
 	echo "All blueprints in a repo will be validated"
