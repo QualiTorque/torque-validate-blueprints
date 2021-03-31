@@ -19,8 +19,8 @@ runs:
   steps:
     - id: check-repo
       run: |
-        echo "Space: ${INPUT_SPACE}"
-        echo "Files from the user input: ${INPUT_FILESLIST}"
+        echo "Space: ${{ inputs.space }}"
+        echo "Files from the user input: ${{ inputs.fileslist }}"
         [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
       shell: bash
 

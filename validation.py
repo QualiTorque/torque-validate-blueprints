@@ -20,9 +20,10 @@ def validate(blueprint, space, token, branch):
     }
     
     resp = requests.post(endpoint_url, json=payload, headers=headers)
-    print(resp.request.body)
+
     if resp.status_code > 400:
-        raise Exception(resp.text)
+        message = ";".join([ err['message'] for err in resp.json().get('errors', [])])
+        raise Exception(message)
     
     else:
         err_list = resp.json().get("errors", [])
@@ -37,6 +38,9 @@ if __name__ == "__main__":
     if not bps_to_validate:
         print("Nothing to do")
         sys.exit(0)
+
+    print(f"Branch for validation: {branch_name}")
+    print(f"Final list of blueprints to validate: {bps_to_validate}")
 
     errors_sum = 0
 
