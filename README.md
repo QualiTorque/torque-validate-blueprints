@@ -45,7 +45,7 @@ jobs:
 
 ## Validate only blueprints affected by latest change
 
-It would be really nice idea to validate only those blueprints that somehow related to changes in the latest commit. Here is how you can do it with a [cool](https://github.com/jitterbit/get-changed-files) GitHub action allowing you to fetch a list of changed files:
+It would be really nice idea to validate only those blueprints that somehow related to changes in the latest commit. Here is how you can do it with a [cool](https://github.com/jitterbit/get-changed-files) GitHub action allowing you to fetch a csv list of changed files:
 
 ```yaml
 name: Validation
@@ -61,6 +61,8 @@ jobs:
     - name: Get changed files
       id: files
       uses: jitterbit/get-changed-files@v1
+      with:
+        format: 'csv'
 
     - name: Colony validate blueprints
       uses: QualiSystemsLab/colony-validate-bp-action@v0.0.1
