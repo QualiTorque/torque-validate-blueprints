@@ -32,7 +32,7 @@ then
 	done
 
 else
-	echo "All blueprints in a repo will be validated"
+	echo "Files list was not provided. All the blueprints files in this branch will be validated."
 	FILES_TO_VALIDATE=(blueprints/*.yaml)
 fi
 
