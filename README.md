@@ -5,7 +5,7 @@ You can choose to validate all blueprints in your current repository or provide 
 
 # Usage
 
-```
+```yaml
 - uses: QualiSystemsLab/colony-validate-bp-action@v0.0.1
   with:
     # The name of Colony Space your repo connected to
@@ -27,7 +27,7 @@ You can choose to validate all blueprints in your current repository or provide 
 
 If we want to validate all blueprints, we first need to checkout a repo and then run validation
 
-```
+```yaml
 name: Validation
 on: [push, pull_request]
 
@@ -47,7 +47,7 @@ jobs:
 
 It would be really nice idea to validate only those blueprints that somehow related to changes in the latest commit. Here is how you can do it with a [cool](https://github.com/jitterbit/get-changed-files) GitHub action allowing you to fetch a list of changed files:
 
-```
+```yaml
 name: Validation
 on: [push, pull_request]
 
