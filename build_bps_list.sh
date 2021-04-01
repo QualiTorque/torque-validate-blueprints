@@ -4,10 +4,9 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$FILESLIST" ];
 then
-	readarray -d , -t files <<< "$FILESLIST"
-	for n in ${#files[*]};
+	IFS=","; declare -a files=($*)
+	for path in $files;
 	do
-		path = "${files[n]}"
 		# highlevel dir
 		FOLDER=$(dirname $path | cut -d/ -f 1);
 
