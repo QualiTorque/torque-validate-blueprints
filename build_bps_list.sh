@@ -9,7 +9,7 @@ then
 	do
 		path="${files[n]}"
 		# highlevel dir
-		FOLDER=$(dirname $path | cut -d/ -f 1);
+		FOLDER=$(dirname "$path" | cut -d/ -f 1);
 
 		if [ $FOLDER = "blueprints" ];
 		then
