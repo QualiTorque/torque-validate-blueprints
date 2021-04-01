@@ -65,7 +65,7 @@ if __name__ == "__main__":
             continue
 
         else:
-            print("[ERROR] The blueprint {bp_name} has the following error(s):")
+            print(f"[ERROR] The blueprint {bp_name} has the following error(s):")
             print("\n".join(errors))
             errors_sum += 1
 

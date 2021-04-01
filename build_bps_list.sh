@@ -25,7 +25,7 @@ then
 				then
 					FILES_TO_VALIDATE+=("${bp}")
 				fi
-			done < <(grep -l -r blueprints/ -e $resource)
+			done < <(grep -l -r blueprints/ -e "$resource:")
 		else
 			echo "Skipping ${path}"
 		fi
