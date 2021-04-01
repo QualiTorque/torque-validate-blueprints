@@ -4,7 +4,7 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$FILESLIST" ];
 then
-	files = (${FILESLIST//,/ })
+	readarray -d , -t files <<< "$FILESLIST"
 	for path in $files;
 	do
 		# highlevel dir
