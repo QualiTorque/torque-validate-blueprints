@@ -7,7 +7,7 @@ then
 	readarray -d , -t files <<< "$FILESLIST"
 	for n in ${#files[*]};
 	do
-		path = ${files[n]}
+		path = "${files[n]}"
 		# highlevel dir
 		FOLDER=$(dirname $path | cut -d/ -f 1);
 
