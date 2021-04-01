@@ -4,9 +4,10 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$FILESLIST" ];
 then
-	IFS=","; declare -a files=($*)
-	for path in $files;
+	IFS=","; read -a files <<< "$FILESLIST"; unset IFS
+	for (( n=0; n < ${#files[*]}; n++))
 	do
+		path="${files[n]}"
 		# highlevel dir
 		FOLDER=$(dirname $path | cut -d/ -f 1);
 
