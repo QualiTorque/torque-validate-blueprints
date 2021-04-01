@@ -4,7 +4,7 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$FILESLIST" ];
 then
-	for path in $FILESLIST;
+	for path in (${FILESLIST//,/ });
 	do
 		# highlevel dir
 		FOLDER=$(dirname $path | cut -d/ -f 1);
