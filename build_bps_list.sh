@@ -19,7 +19,7 @@ then
 		elif [ $FOLDER == "applications" ] || [ $FOLDER == "services" ];
 		then
 			# find corresponding blueprint
-			resource=$(dirname $path | cut -d/ -f 2)
+			resource=$(dirname "$path" | cut -d/ -f 2)
 
 			while read bp;
 			do

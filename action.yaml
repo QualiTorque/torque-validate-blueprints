@@ -19,7 +19,7 @@ runs:
   steps:
     - id: check-repo
       run: |
-        echo "Files from the user input: ${{ inputs.fileslist }}"
+        echo "Files from the user input: ${{ inputs.files_list }}"
         [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
       shell: bash
 
