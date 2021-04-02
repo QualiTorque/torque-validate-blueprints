@@ -4,10 +4,12 @@ FILES_TO_VALIDATE=()
 
 if [ -n "$FILESLIST" ];
 then
-	for path in $FILESLIST;
+	IFS=","; read -a files <<< "$FILESLIST"; unset IFS
+	for (( n=0; n < ${#files[*]}; n++))
 	do
+		path="${files[n]}"
 		# highlevel dir
-		FOLDER=$(dirname $path | cut -d/ -f 1);
+		FOLDER=$(dirname "$path" | cut -d/ -f 1);
 
 		if [ $FOLDER = "blueprints" ];
 		then
