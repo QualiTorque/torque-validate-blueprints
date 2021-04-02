@@ -3,10 +3,10 @@ description: 'Validates colony blueprints against specific repo'
 author: 'Quali'
 inputs:
   space:
-    description: 'Colony space'
+    description: 'Colony space your repository is connected to'
     required: true
 
-  fileslist:
+  files_list:
     description: 'A list of files to validate in csv format'
     required: false
     
@@ -26,7 +26,7 @@ runs:
     - id: build-bps-list
       run: ${{ github.action_path }}/build_bps_list.sh
       env:
-        FILESLIST: ${{ inputs.fileslist }}
+        FILESLIST: ${{ inputs.files_list }}
       shell: bash
 
     - id: extract_branch
