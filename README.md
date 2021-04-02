@@ -1,6 +1,6 @@
 # colony-validate-bp-action
 
-Enable validation in your Colony Blueprints Repo. 
+Validate that blueprints and their dependencies are always valid in your repository. 
 You can choose to validate all blueprints in your current repository or provide a list of files for validation.
 
 # Usage
@@ -8,16 +8,16 @@ You can choose to validate all blueprints in your current repository or provide 
 ```yaml
 - uses: QualiSystemsLab/colony-validate-bp-action@v0.0.1
   with:
-    # The name of Colony Space your repo connected to
+    # The name of the Colony Space your repository is connected to
     space: MyTestSpace
     
     # Provide the long term Colony token which could be generated
-    # on 'Integrations' page in Colony UI
+    # on the 'Integrations' page under the Colony's Settings page
     colony_token: ${{ secrets.COLONY_TOKEN }}
     
     # [Optional] Specify a list of files you want to validate in csv format (comma-separated).
     # An action will validate all blueprints related to this list of files
-    # If not set, all blueprints in repo will be validated
+    # If not set, all the blueprints in the branch will be validated
     fileslist: blueprints/Wordpress.yaml,applications/mysql/init.sh
 ```
 
@@ -25,7 +25,7 @@ You can choose to validate all blueprints in your current repository or provide 
 
 ## Validate all blueprints
 
-If we want to validate all blueprints, we first need to checkout a repo and then run validation
+To validate all the blueprints, we first need to checkout the files and then run the validation
 
 ```yaml
 name: Validation
@@ -45,7 +45,8 @@ jobs:
 
 ## Validate only blueprints affected by latest change
 
-It would be really nice idea to validate only those blueprints that somehow related to changes in the latest commit. Here is how you can do it with a [cool](https://github.com/jitterbit/get-changed-files) GitHub action allowing you to fetch a csv list of changed files:
+To save time, you can validate only those blueprints that are somehow related to changes in the latest commit. 
+Here is how you can do it with a [cool](https://github.com/jitterbit/get-changed-files) GitHub action that returns a csv list of the added/changed files in a certain push or or pull request:
 
 ```yaml
 name: Validation
