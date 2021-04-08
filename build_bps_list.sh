@@ -13,8 +13,8 @@ then
 
 		if [ $FOLDER = "blueprints" ];
 		then
-			# do nothing, just add to validation list 
-			FILES_TO_VALIDATE+=("${path}")
+			# do nothing, just add to validation list
+			[[ ! " ${FILES_TO_VALIDATE[@]} " =~ " ${path} " ]] && FILES_TO_VALIDATE+=("${path}")
 			
 		elif [ $FOLDER == "applications" ] || [ $FOLDER == "services" ];
 		then
