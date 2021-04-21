@@ -13,6 +13,7 @@ You can choose to validate all blueprints in your current repository or provide 
     
     # Provide the long term Colony token which could be generated
     # on the 'Integrations' page under the Colony's Settings page
+    # or generate a new one with the REST API
     colony_token: ${{ secrets.COLONY_TOKEN }}
     
     # [Optional] Specify a list of files you want to validate in csv format (comma-separated).
