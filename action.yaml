@@ -1,9 +1,9 @@
 name: 'Colony Validate'
-description: 'Validates colony blueprints against specific repo'
+description: 'Validates CloudShell Colony''s blueprints and applications files'
 author: 'Quali'
 inputs:
   space:
-    description: 'Colony space your repository is connected to'
+    description: 'The Colony space your repository is connected to'
     required: true
 
   files_list:
@@ -11,7 +11,7 @@ inputs:
     required: false
     
   colony_token:
-    description: 'Colony longterm token'
+    description: 'A Colony longterm token'
     required: true
 
 runs:
