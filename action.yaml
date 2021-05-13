@@ -43,3 +43,7 @@ runs:
         COLONY_TOKEN: ${{ inputs.colony_token }}
 
       shell: bash
+
+branding:
+  icon: 'check-circle'  
+  color: 'green'
