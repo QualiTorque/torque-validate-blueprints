@@ -1,4 +1,4 @@
-# colony-validate-bp-action
+# torque-validate-bp-action
 
 This action validates your blueprints and their dependencies are always valid in your repository as part of your CI/CD pipeline or just whenever files are changed. 
 You can choose to validate all the blueprints in your current repository or provide a list of files for validation.
@@ -6,14 +6,14 @@ You can choose to validate all the blueprints in your current repository or prov
 # Usage
 
 ```yaml
-- uses: QualiSystemsLab/colony-validate-bp-action@v0.0.1
+- uses: QualiTorque/torque-validate-bp-action@v0.0.1
   with:
-    # The name of the Colony Space your repository is connected to
+    # The name of the Torque Space your repository is connected to
     space: MyTestSpace
     
-    # Provide the long term Colony token. You can generate it in Colony > Settings > Integrations
+    # Provide the long term Torque token. You can generate it in Torque > Settings > Integrations
     # or via the REST API.
-    colony_token: ${{ secrets.COLONY_TOKEN }}
+    torque_token: ${{ secrets.TORQUE_TOKEN }}
     
     # [Optional] Specify a list of blueprint YAML files you want to validate in csv format (comma-separated).
     # An action will validate all blueprints related to this list of files.
@@ -37,10 +37,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - uses: QualiSystemsLab/colony-validate-bp-action@v0.0.1
+    - uses: QualiTorque/torque-validate-bp-action@v0.0.1
       with:
         space: MyTestSpace
-        colony_token: ${{ secrets.COLONY_TOKEN }}
+        torque_token: ${{ secrets.TORQUE_TOKEN }}
 ```
 
 ## Validate only blueprints affected by latest change
@@ -65,11 +65,11 @@ jobs:
       with:
         format: 'csv'
 
-    - name: Colony validate blueprints
-      uses: QualiSystemsLab/colony-validate-bp-action@v0.0.1
+    - name: Torque validate blueprints
+      uses: QualiTorque/torque-validate-bp-action@v0.0.1
       with:
         space: MyTestSpace
         # Check added and modified files
         fileslist: ${{ steps.files.outputs.added_modified  }}
-        colony_token: ${{ secrets.COLONY_TOKEN }}
+        torque_token: ${{ secrets.TORQUE_TOKEN }}
 ```

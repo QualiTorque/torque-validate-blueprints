@@ -32,10 +32,10 @@ def validate(blueprint, space, token, branch):
 if __name__ == "__main__":
     bps_to_validate = os.environ.get("BPS_TO_VALIDATE", "")
     branch_name = os.environ.get("BRANCH", "master")
-    colony_space = os.environ.get("SPACE", "")
-    colony_token = os.environ.get("COLONY_TOKEN", "")
+    torque_space = os.environ.get("SPACE", "")
+    torque_token = os.environ.get("TORQUE_TOKEN", "")
 
-    if not all([colony_space, colony_token]):
+    if not all([torque_space, torque_token]):
         print("[ERROR] Unable to validate blueprints since not all mandatory parameters have been provided")
 
     if not bps_to_validate:
@@ -43,7 +43,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     print(f"Branch for validation: {branch_name}")
-    print(f"Space: {colony_space}")
+    print(f"Space: {torque_space}")
     print(f"Final list of blueprints to validate: {bps_to_validate}")
 
     errors_sum = 0
@@ -55,7 +55,7 @@ if __name__ == "__main__":
         errors = None
   
         try: 
-            errors = validate(bp_name, colony_space, colony_token, branch_name)
+            errors = validate(bp_name, torque_space, torque_token, branch_name)
         except Exception as e:
             print(f"[WARNING] Unable to validate blueprint {bp_name}. Reason: {str(e)}")
             continue
