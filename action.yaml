@@ -1,5 +1,5 @@
 name: 'Torque Validate'
-description: 'Validates CloudShell Torque''s blueprints and applications files'
+description: "Validates Torque's blueprints and applications files"
 author: 'Quali'
 inputs:
   space:
