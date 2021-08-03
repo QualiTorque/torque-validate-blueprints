@@ -4,7 +4,7 @@ import requests
 
 def validate(blueprint, space, token, branch):
     """returns the list of errors"""
-    endpoint_url = f"https://cloudshellcolony.com/api/spaces/{space}/validations/blueprints"
+    endpoint_url = f"https://qtorque.io/api/spaces/{space}/validations/blueprints"
     payload = {
         'blueprint_name': blueprint,
         'type': 'sandbox',
