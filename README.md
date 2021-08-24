@@ -6,7 +6,7 @@ You can choose to validate all the blueprints in your current repository or prov
 # Usage
 
 ```yaml
-- uses: QualiTorque/torque-validate-bp-action@v0.0.1
+- uses: QualiTorque/torque-validate-bp-action@v0.0.3
   with:
     # The name of the Torque Space your repository is connected to
     space: MyTestSpace
@@ -37,7 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - uses: QualiTorque/torque-validate-bp-action@v0.0.1
+    - uses: QualiTorque/torque-validate-bp-action@v0.0.3
       with:
         space: MyTestSpace
         torque_token: ${{ secrets.TORQUE_TOKEN }}
@@ -66,7 +66,7 @@ jobs:
         format: 'csv'
 
     - name: Torque validate blueprints
-      uses: QualiTorque/torque-validate-bp-action@v0.0.1
+      uses: QualiTorque/torque-validate-bp-action@v0.0.3
       with:
         space: MyTestSpace
         # Check added and modified files
