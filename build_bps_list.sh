@@ -40,4 +40,5 @@ fi
 
 csv_output=$(printf ",%s" "${FILES_TO_VALIDATE[@]}")
 csv_output=${csv_output:1}
-echo "::set-output name=blueprints-to-validate::$(echo $csv_output)"
+echo "blueprints-to-validate=${csv_output}" >> $GITHUB_OUTPUT
+# echo "::set-output name=blueprints-to-validate::$(echo $csv_output)"
