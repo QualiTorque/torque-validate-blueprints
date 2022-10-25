@@ -25,7 +25,7 @@ runs:
     - id: check-repo
       run: |
         echo "Files from the user input: ${{ inputs.files_list }}"
-        [ -d "./blueprints" ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
+        [ -d ./blueprints ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
       shell: bash
 
     - id: build-bps-list
