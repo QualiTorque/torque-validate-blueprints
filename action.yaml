@@ -14,6 +14,11 @@ inputs:
     description: 'A Torque longterm token'
     required: true
 
+  torque_url:
+    description: 'Override Torque app url if needed'
+    required: false
+    default: "https://portal.qtorque.io"
+
 runs:
   using: "composite"
   steps:
@@ -29,18 +34,14 @@ runs:
         FILESLIST: ${{ inputs.files_list }}
       shell: bash
 
-    - id: extract_branch
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-
     - name: Validation Loop
       id: validate
       run: python3 ${{ github.action_path }}/validation.py
       env:
-        BRANCH: ${{ steps.extract_branch.outputs.branch }}
         BPS_TO_VALIDATE: ${{ steps.build-bps-list.outputs.blueprints-to-validate }}
         SPACE: ${{ inputs.space }}
         TORQUE_TOKEN: ${{ inputs.torque_token }}
+        TORQUE_URL: ${{ inputs.torque_url }}
 
       shell: bash
 

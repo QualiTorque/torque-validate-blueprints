@@ -1,16 +1,13 @@
 import os
 import sys
 import requests
+import base64
 
-def validate(blueprint, space, token, branch):
+def validate(blueprint_b64, space, token, torque_url="https://portal.qtorque.io"):
     """returns the list of errors"""
-    endpoint_url = f"https://portal.qtorque.io/api/spaces/{space}/validations/blueprints"
+    endpoint_url = f"{torque_url}/api/spaces/{space}/validations/blueprints"
     payload = {
-        'blueprint_name': blueprint,
-        'type': 'sandbox',
-        'source': {
-            'branch': branch
-        }
+        "blueprint_raw_64": blueprint_b64
     }
 
     headers = {
@@ -31,9 +28,9 @@ def validate(blueprint, space, token, branch):
 
 if __name__ == "__main__":
     bps_to_validate = os.environ.get("BPS_TO_VALIDATE", "")
-    branch_name = os.environ.get("BRANCH", "master")
     torque_space = os.environ.get("SPACE", "")
     torque_token = os.environ.get("TORQUE_TOKEN", "")
+    torque_url = os.environ.get("TORQUE_URL", "")
 
     if not all([torque_space, torque_token]):
         print("[ERROR] Unable to validate blueprints since not all mandatory parameters have been provided")
@@ -42,30 +39,30 @@ if __name__ == "__main__":
         print("Nothing to do")
         sys.exit(0)
 
-    print(f"Branch for validation: {branch_name}")
     print(f"Space: {torque_space}")
     print(f"Final list of blueprints to validate: {bps_to_validate}")
 
     errors_sum = 0
 
     for bp_path in bps_to_validate.split(","):
-        bp_base = os.path.basename(bp_path)
-        bp_name = os.path.splitext(bp_base)[0]
- 
+        with open(bp_path, "r") as bp_file:
+            content = bp_file.read()
+        
+        encoded = base64.b64encode(content.encode("utf-8"))
         errors = None
   
         try: 
-            errors = validate(bp_name, torque_space, torque_token, branch_name)
+            errors = validate(encoded.decode("utf-8"), torque_space, torque_token, torque_url)
         except Exception as e:
-            print(f"[WARNING] Unable to validate blueprint {bp_name}. Reason: {str(e)}")
+            print(f"[WARNING] Unable to validate blueprint {bp_path}. Reason: {str(e)}")
             continue
  
         if not errors:
-            print(f"The blueprint {bp_name} is valid")
+            print(f"The blueprint {bp_path} is valid")
             continue
 
         else:
-            print(f"[ERROR] The blueprint {bp_name} has the following error(s):")
+            print(f"[ERROR] The blueprint {bp_path} has the following error(s):")
             print("\n".join(errors))
             errors_sum += 1
 

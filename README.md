@@ -6,7 +6,7 @@ You can choose to validate all the blueprints in your current repository or prov
 # Usage
 
 ```yaml
-- uses: QualiTorque/torque-validate-bp-action@v0.0.3
+- uses: QualiTorque/torque-validate-bp-action@v0.1.0
   with:
     # The name of the Torque Space your repository is connected to
     space: MyTestSpace
@@ -19,6 +19,9 @@ You can choose to validate all the blueprints in your current repository or prov
     # An action will validate all blueprints related to this list of files.
     # If not set, all the blueprints in the branch will be validated.
     fileslist: blueprints/Wordpress.yaml,applications/mysql/mysql.yaml
+
+    # [Optional] Override the Torque server url (https://portal.qtorque.io) if needed.
+    torque_url: https://demo.qtorque.io
 ```
 
 # Examples
@@ -37,7 +40,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - uses: QualiTorque/torque-validate-bp-action@v0.0.3
+    - uses: QualiTorque/torque-validate-bp-action@v0.1.0
       with:
         space: MyTestSpace
         torque_token: ${{ secrets.TORQUE_TOKEN }}
@@ -66,7 +69,7 @@ jobs:
         format: 'csv'
 
     - name: Torque validate blueprints
-      uses: QualiTorque/torque-validate-bp-action@v0.0.3
+      uses: QualiTorque/torque-validate-bp-action@v0.1.0
       with:
         space: MyTestSpace
         # Check added and modified files
