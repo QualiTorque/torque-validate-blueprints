@@ -26,8 +26,11 @@ else
 	FILES_TO_VALIDATE=(blueprints/*.yaml)
 fi
 
+echo "Files to validate: ${FILES_TO_VALIDATE}"
+
 for f in $FILES_TO_VALIDATE
 do
+    echo "Validating ${f}"
     torque --disable-version-check bp validate $f || errors=$((errors+1))
 done
 
