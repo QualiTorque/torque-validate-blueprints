@@ -28,11 +28,12 @@ fi
 
 for f in $FILES_TO_VALIDATE
 do
-    echo "\n\nValidating ${f}..."
+    echo
+    echo "Validating ${f}..."
     torque --disable-version-check bp validate $f --output json --detail || errors=$((errors+1))
 done
 
 if [ "$errors" -gt 0 ]; then
-    echo "The total number of failed blueprints: ${errors}"
+    echo "::error::The total number of failed blueprints: ${errors}"
     exit 1
 fi
