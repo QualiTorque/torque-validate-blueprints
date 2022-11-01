@@ -26,12 +26,10 @@ else
 	FILES_TO_VALIDATE=$(ls blueprints/*.yaml)
 fi
 
-echo "Files to validate: ${FILES_TO_VALIDATE}"
-
 for f in $FILES_TO_VALIDATE
 do
-    echo "Validating ${f}"
-    torque --disable-version-check bp validate $f || errors=$((errors+1))
+    echo "\n\nValidating ${f}..."
+    torque --disable-version-check bp validate $f --output json --detail || errors=$((errors+1))
 done
 
 if [ "$errors" -gt 0 ]; then
