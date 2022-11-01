@@ -14,7 +14,7 @@ inputs:
     description: 'A Torque longterm token'
     required: true
 
-  torque_torque:
+  torque_hostname:
     description: 'Override Torque app url if needed'
     required: false
     default: "portal.qtorque.io"
@@ -27,7 +27,7 @@ runs:
   env:
     TORQUE_SPACE: ${{ inputs.space }}
     TORQUE_TOKEN: ${{ inputs.torque_token }}
-    TORQUE_HOSTNAME: ${{ inputs.torque_url }}
+    TORQUE_HOSTNAME: ${{ inputs.torque_hostname }}
 
 branding:
   icon: 'check-circle'  
