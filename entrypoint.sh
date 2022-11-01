@@ -23,7 +23,7 @@ then
 
 else
 	echo "Files list was not provided. All the blueprints files in this branch will be validated."
-	FILES_TO_VALIDATE=(blueprints/*.yaml)
+	FILES_TO_VALIDATE=$(ls blueprints/*.yaml)
 fi
 
 echo "Files to validate: ${FILES_TO_VALIDATE}"
