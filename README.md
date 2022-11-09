@@ -1,4 +1,4 @@
-# torque-validate-bp-action
+# torque-validate-blueprint
 
 This action validates your blueprints and their dependencies are always valid in your repository as part of your CI/CD pipeline or just whenever files are changed. 
 You can choose to validate all the blueprints in your current repository or provide a list of files for validation.
@@ -6,7 +6,7 @@ You can choose to validate all the blueprints in your current repository or prov
 # Usage
 
 ```yaml
-- uses: QualiTorque/torque-validate-bp-action@v0.1.0
+- uses: QualiTorque/torque-validate-blueprint@v0.1.0
   with:
     # The name of the Torque Space your repository is connected to
     space: MyTestSpace
@@ -40,7 +40,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - uses: QualiTorque/torque-validate-bp-action@v0.1.0
+    - uses: QualiTorque/torque-validate-blueprint@v0.1.0
       with:
         space: MyTestSpace
         torque_token: ${{ secrets.TORQUE_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
         format: 'csv'
 
     - name: Torque validate blueprints
-      uses: QualiTorque/torque-validate-bp-action@v0.1.0
+      uses: QualiTorque/torque-validate-blueprint@v0.1.0
       with:
         space: MyTestSpace
         # Check added and modified files
