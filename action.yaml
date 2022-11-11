@@ -1,5 +1,5 @@
-name: 'Torque Validate'
-description: "Validates Torque's blueprints and applications files"
+name: 'Torque Validate Blueprints'
+description: "Validates Torque's blueprints in your repo"
 author: 'Quali'
 inputs:
   space:
@@ -14,36 +14,20 @@ inputs:
     description: 'A Torque longterm token'
     required: true
 
-  torque_url:
+  torque_hostname:
     description: 'Override Torque app url if needed'
     required: false
-    default: "https://portal.qtorque.io"
+    default: "portal.qtorque.io"
 
 runs:
-  using: "composite"
-  steps:
-    - id: check-repo
-      run: |
-        echo "Files from the user input: ${{ inputs.files_list }}"
-        [ -d ./blueprints ] || (echo "Wrong repo. No blueprints/ directory" && exit 1)
-      shell: bash
-
-    - id: build-bps-list
-      run: ${{ github.action_path }}/build_bps_list.sh
-      env:
-        FILESLIST: ${{ inputs.files_list }}
-      shell: bash
-
-    - name: Validation Loop
-      id: validate
-      run: python3 ${{ github.action_path }}/validation.py
-      env:
-        BPS_TO_VALIDATE: ${{ steps.build-bps-list.outputs.blueprints-to-validate }}
-        SPACE: ${{ inputs.space }}
-        TORQUE_TOKEN: ${{ inputs.torque_token }}
-        TORQUE_URL: ${{ inputs.torque_url }}
-
-      shell: bash
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.files_list }}
+  env:
+    TORQUE_SPACE: ${{ inputs.space }}
+    TORQUE_TOKEN: ${{ inputs.torque_token }}
+    TORQUE_HOSTNAME: ${{ inputs.torque_hostname }}
 
 branding:
   icon: 'check-circle'  
