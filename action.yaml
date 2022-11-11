@@ -1,5 +1,5 @@
-name: 'Torque Validate'
-description: "Validates Torque's blueprints and applications files"
+name: 'Torque Validate Blueprints'
+description: "Validates Torque's blueprints in your repo"
 author: 'Quali'
 inputs:
   space:

@@ -1,4 +1,4 @@
-# torque-validate-blueprint
+# torque-validate-blueprints
 
 This action validates your blueprints and their dependencies are always valid in your repository as part of your CI/CD pipeline or just whenever files are changed. 
 You can choose to validate all the blueprints in your current repository or provide a list of files for validation.
@@ -6,7 +6,7 @@ You can choose to validate all the blueprints in your current repository or prov
 # Usage
 
 ```yaml
-- uses: QualiTorque/torque-validate-blueprint@v0.1.0
+- uses: QualiTorque/torque-validate-blueprints@v1
   with:
     # The name of the Torque Space your repository is connected to
     space: MyTestSpace
@@ -20,8 +20,8 @@ You can choose to validate all the blueprints in your current repository or prov
     # If not set, all the blueprints in the branch will be validated.
     fileslist: blueprints/Wordpress.yaml,applications/mysql/mysql.yaml
 
-    # [Optional] Override the Torque server url (https://portal.qtorque.io) if needed.
-    torque_url: https://demo.qtorque.io
+    # [Optional] Override the Torque server hostname (portal.qtorque.io) if needed.
+    torque_hostname: demo.qtorque.io
 ```
 
 # Examples
@@ -40,7 +40,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - uses: QualiTorque/torque-validate-blueprint@v0.1.0
+    - uses: QualiTorque/torque-validate-blueprints@v1
       with:
         space: MyTestSpace
         torque_token: ${{ secrets.TORQUE_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
         format: 'csv'
 
     - name: Torque validate blueprints
-      uses: QualiTorque/torque-validate-blueprint@v0.1.0
+      uses: QualiTorque/torque-validate-blueprints@v1
       with:
         space: MyTestSpace
         # Check added and modified files
